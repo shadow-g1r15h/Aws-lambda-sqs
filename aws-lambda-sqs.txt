@@ -1,0 +1,9 @@
+The source code is in the branch named "aws-lambda-sqs"
+
+to run the application run the command in terminal npx sst start
+
+I have written the code for to send 10 messages in an sqs 
+queue and then written logic to fail messages and store the 
+failed messages to the dynamo db table however was not
+successfull to add feature where user could retry 3 times 
+when a message is failed
