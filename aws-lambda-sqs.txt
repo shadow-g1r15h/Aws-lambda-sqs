@@ -7,3 +7,6 @@ queue and then written logic to fail messages and store the
 failed messages to the dynamo db table however was not
 successfull to add feature where user could retry 3 times 
 when a message is failed
+
+However I have tested my code on management console in aws
+and the code is working alright.
