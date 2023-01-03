@@ -1,10 +1,11 @@
 const AWS = require("aws-sdk");
+// import AWS from 'aws-sdk';
 AWS.config.update({ region: "us-east-1" });
-const sqs = new AWS.SQS(); // using the amazon sqs queue to store the messages
+const sqs = new AWS.SQS();
 const sqsURL = "https://sqs.us-east-1.amazonaws.com/677086284967/kloudMate";
-const numberOfMessages = 10; // 10 messages to be stored in the queue
+const numberOfMessages = 10;
 
-exports.handler = async (event: any) => {
+exports.handler = async (event) => {
   let messageId = 1000;
   const records = [];
   for (let i = 0; i < numberOfMessages; i++) {
@@ -15,6 +16,7 @@ exports.handler = async (event: any) => {
         timestamp: new Date().toISOString(),
       }),
       QueueUrl: sqsURL,
+      // MessageDeduplicationId: messageId.toString(),
     };
     records.push(params);
     messageId++;
@@ -24,10 +26,10 @@ exports.handler = async (event: any) => {
       .sendMessage(record)
       .promise()
       .then(
-        (response: any) => {
+        (response) => {
           console.log(JSON.stringify(response));
         },
-        (error: any) => {
+        (error) => {
           console.error(error);
         }
       );

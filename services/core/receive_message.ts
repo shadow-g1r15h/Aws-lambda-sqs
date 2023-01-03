@@ -1,7 +1,4 @@
-// var AWS = require("aws-sdk");
-
-// providing aws credentials and configueration to c=setup connection with the db
-
+var AWS = require("aws-sdk");
 let awsConfig = {
   region: "us-east-1",
   endpoint: "http://dynamodb.us-east-1.amazonaws.com",
@@ -10,7 +7,6 @@ let awsConfig = {
 };
 AWS.config.update(awsConfig);
 
-// passing the configurations to create connection with dynamo db
 let docClient = new AWS.DynamoDB({
   region: awsConfig.region,
   accessKeyId: awsConfig.accessKeyId,
@@ -56,26 +52,23 @@ let docClient = new AWS.DynamoDB({
 //--------------------------------------------------------------------------------------------------------------------------------------
 
 // function to handle receiver end receiving messages from the sqs queue
-exports.handler = async (event: any) => {
-  const body = event.Records[0].body;
+exports.handler = async (event) => {
+  const body = JSON.parse(event.Records[0].body);
 
-  // check message received is passed or failed
   if (body.message >= 5) {
-    // print this in terminal if message is passed
     console.log("This message is passed", body.messageId);
   } else {
+    console.log("i am here");
     // error message
     // save in db
-    // console.log("This message is failed", body.messageId);
 
-    // input data to be stored to db
+    console.log("This message is failed", body.messageId);
+
     var input = {
       message_id: {
-        S: body.message.toString(),
+        S: body.messageId.toString(),
       },
     };
-
-    // passing input to the table
     var params = {
       TableName: "failedmessages",
       Item: input,
