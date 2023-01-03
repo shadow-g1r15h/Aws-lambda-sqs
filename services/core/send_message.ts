@@ -5,7 +5,7 @@ const sqs = new AWS.SQS();
 const sqsURL = "https://sqs.us-east-1.amazonaws.com/677086284967/kloudMate";
 const numberOfMessages = 10;
 
-exports.handler = async (event) => {
+exports.handler = async (event: any) => {
   let messageId = 1000;
   const records = [];
   for (let i = 0; i < numberOfMessages; i++) {
@@ -26,10 +26,10 @@ exports.handler = async (event) => {
       .sendMessage(record)
       .promise()
       .then(
-        (response) => {
+        (response: any) => {
           console.log(JSON.stringify(response));
         },
-        (error) => {
+        (error: any) => {
           console.error(error);
         }
       );

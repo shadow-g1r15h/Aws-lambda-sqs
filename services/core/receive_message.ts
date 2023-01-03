@@ -1,4 +1,4 @@
-var AWS = require("aws-sdk");
+// var AWS = require("aws-sdk");
 let awsConfig = {
   region: "us-east-1",
   endpoint: "http://dynamodb.us-east-1.amazonaws.com",
@@ -52,7 +52,7 @@ let docClient = new AWS.DynamoDB({
 //--------------------------------------------------------------------------------------------------------------------------------------
 
 // function to handle receiver end receiving messages from the sqs queue
-exports.handler = async (event) => {
+exports.handler = async (event: any) => {
   const body = JSON.parse(event.Records[0].body);
 
   if (body.message >= 5) {
